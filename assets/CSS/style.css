@@ -1,0 +1,41 @@
+/* INDEX */
+nav {
+  background-color: rgb(156, 10, 10);
+}
+
+footer {
+  background-color: rgb(156, 10, 10);
+}
+
+svg {
+  cursor: pointer;
+}
+
+body {
+  background-color: rgb(27, 27, 27);
+}
+
+/* SHOP */
+.card-color-bg {
+  background-color: rgb(61, 61, 61);
+  color: white;
+  cursor: pointer;
+}
+
+.card-color-bg:hover {
+  scale: 1.1;
+  box-shadow: 0 0 12px 1px #950000;
+}
+
+.btn-buy {
+  background-color: #950000;
+  color: white;
+}
+
+/* DETAILS (MODALE) */
+.admin-button-div {
+  background-color: #454545;
+  height: 50px;
+  width: 53%;
+  border-radius: 8px;
+}
