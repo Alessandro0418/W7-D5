@@ -1,27 +1,35 @@
+const printDateInFooter = function () {
+  const footerSpan = document.getElementById("year");
+  footerSpan.innerText = new Date().getFullYear();
+};
+printDateInFooter();
+
 // shop.js
 const shopContainer = document.getElementById("shop-container");
-async function fetchProducts() {
-  try {
-    const response = await fetch(
-      "https://striveschool-api.herokuapp.com/api/product/",
-      {
-        method: "GET",
-        headers: {
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RkNWVjMDM4MzRiZjAwMTUwMDA4YTEiLCJpYXQiOjE3NDI1NjA5NjAsImV4cCI6MTc0Mzc3MDU2MH0.KxsR8b5dGT34tgxF3jTHbPZIynIcmLPlUI-f_1hn0MA",
-        },
-      }
-    );
 
-    if (response.ok) {
-      const products = await response.json();
-      displayProducts(products);
-    } else {
-      console.error("Errore nel recupero dei prodotti", response.status);
-    }
-  } catch (error) {
-    console.error("Errore di rete:", error);
-  }
+function fetchProducts() {
+  fetch("https://striveschool-api.herokuapp.com/api/product/", {
+    method: "GET",
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2RkNWVjMDM4MzRiZjAwMTUwMDA4YTEiLCJpYXQiOjE3NDI1NjA5NjAsImV4cCI6MTc0Mzc3MDU2MH0.KxsR8b5dGT34tgxF3jTHbPZIynIcmLPlUI-f_1hn0MA",
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        console.error("Errore nel recupero dei prodotti", response.status);
+      }
+    })
+    .then((products) => {
+      if (products) {
+        displayProducts(products);
+      }
+    })
+    .catch((error) => {
+      console.error("Errore di rete:", error);
+    });
 }
 
 function displayProducts(products) {
@@ -35,11 +43,12 @@ function displayProducts(products) {
               <div class="card-body">
                 <h5 class="card-title">${product.name}</h5>
                 <p class="card-text">${product.description}</p>
-                <p class="card-text">Price: €${product.price}</p>
-                <a href="#" class="btn btn-buy">Buy Now</a>
+                <div class="price-div">
+                <p class="card-text text-center">Price: €${product.price}</p>
+                </div>
               </div>
             </div>
-    
+
             <!-- Modal -->
             <div class="modal fade" id="modal-${product._id}" tabindex="-1" aria-labelledby="modalLabel-${product._id}" aria-hidden="true">
               <div class="modal-dialog">
@@ -61,7 +70,7 @@ function displayProducts(products) {
                     </div>
                     
                     <button type="button" class="btn btn-secondary ms-5" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Buy Now</button>
+                    <button type="button" class="btn btn-buy">Buy Now</button>
                   </div>
                 </div>
               </div>
@@ -91,9 +100,15 @@ function displayProducts(products) {
         deleteProduct(product._id);
       });
     }
+    // BUY NOW BUTTON
+    const buyButton = document.querySelector(`#modal-${product._id} .btn-buy`);
+    if (buyButton) {
+      buyButton.addEventListener("click", () => {
+        alert("FONDI INSUFFICIENTI");
+      });
+    }
   });
 }
-
 const deleteProduct = function (productId) {
   fetch("https://striveschool-api.herokuapp.com/api/product/" + productId, {
     method: "DELETE",

@@ -1,3 +1,9 @@
+const printDateInFooter = function () {
+  const footerSpan = document.getElementById("year");
+  footerSpan.innerText = new Date().getFullYear();
+};
+printDateInFooter();
+
 const form = document.getElementById("event-form");
 async function createProduct(event) {
   event.preventDefault();

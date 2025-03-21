@@ -1,4 +1,9 @@
+body {
+  user-select: none;
+}
+
 /* INDEX */
+
 nav {
   background-color: rgb(156, 10, 10);
 }
@@ -38,4 +43,8 @@ body {
   height: 50px;
   width: 53%;
   border-radius: 8px;
+}
+
+.price-div {
+  background-color: #252525;
 }
